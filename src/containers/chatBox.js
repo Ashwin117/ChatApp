@@ -5,19 +5,17 @@ import { bindActionCreators } from 'redux';
 import messagesList from '../components/messagesList';
 
 class ChatBox extends Component {
-	displayText() {
-		var message = messagesList(this.props);
-		return message
+	handleFormSubmit(event) {
+		this.props.submitText(event);
+		event.preventDefault();
+		event.target[0].value = "";
 	}
-
 	render() {
 		return (
 			<div>
-				<form onSubmit={this.props.submitText.bind(this)}>
-				    <input type="text" className="form-control" 
-				    	placeholder="Text"
-				    	value={this.props.text}
-				    />
+				{messagesList(this.props)}
+				<form onSubmit={this.handleFormSubmit.bind(this)}>
+				    <input type="text" className="form-control" placeholder="Text"/>
 					<button type="submit" className="btn btn-default">
 						Enter
 					</button>

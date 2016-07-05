@@ -11,7 +11,6 @@ export function submitText (event) {
 		}
 	})
 	.then((response) => {
-		console.log('------');
 		console.log(response);
 	});
 
