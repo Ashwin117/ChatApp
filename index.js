@@ -1,3 +1,5 @@
+'use strict';
+
 let express = require('express');
 let bodyParser = require('body-parser');
 let knex = require('knex')({
@@ -12,11 +14,19 @@ let knex = require('knex')({
 
 let app = express();
 app.use(bodyParser.json());
-let PORT = 8080;
+let PORT = 8000;
 let MESSAGES_TABLE = 'messages';
 
 // Store messages to database
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.post('/', (req, res) => {
+	console.log('Attempting a POST');
 	knex(MESSAGES_TABLE).insert({text: req.body.text})
 	.then (function (result) {
 		console.log(result);
@@ -33,3 +43,6 @@ app.get('/', (req, res) => {
 		res.send({'messages': result});
 	})
 });
+
+console.log('Listening at port:' + PORT);
+app.listen(PORT);

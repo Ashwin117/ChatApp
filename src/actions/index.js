@@ -1,9 +1,22 @@
-
+import axios from 'axios';
 
 export function submitText (event) {
-
+	const text = event.target[0].value
+	axios({
+		url: 'http://localhost:8000',
+		method: 'post',
+		headers: {'Content-type': 'application/json', 'Accept': 'application/json'},
+		data: {
+			'text': text
+		}
+	})
+	.then((response) => {
+		console.log('------');
+		console.log(response);
+	});
 
 	return {
-		payload: event.target[0].value
+		type: 'POST',
+		payload: text
 	}
 }

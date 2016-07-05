@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import { submitText } from '../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import messagesList from '../components/messagesList';
 
 class ChatBox extends Component {
+	displayText() {
+		var message = messagesList(this.props);
+		return message
+	}
 
 	render() {
 		return (
@@ -22,10 +27,16 @@ class ChatBox extends Component {
 	}
 }
 
+function mapStateToProps(state) {
+	return {
+		text: state.text
+	}
+}
+
 function mapDispatchToProps(dispatch) {
 	return bindActionCreators({
 		submitText: submitText
 	}, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(ChatBox);
+export default connect(mapStateToProps, mapDispatchToProps)(ChatBox);

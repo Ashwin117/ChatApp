@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import textPoster from './textPoster';
 
 const rootReducer = combineReducers({
-	state: (state = {}) => state
+	text: textPoster
 });
 
 export default rootReducer;
